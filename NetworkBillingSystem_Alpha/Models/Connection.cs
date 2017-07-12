@@ -11,16 +11,11 @@ namespace NetworkBillingSystem_Alpha.Models
     {
         [Key]
         public int ConnectionID { get; set; }
-
         public DateTime ConnectionDateTime { get; set; }
-
-        [ForeignKey("BDINumber")]
-        public string BDI { get; set; }
-        [ForeignKey("Mac")]
-        public string Mac { get; set; }
-        [ForeignKey("DepartmentID")]
-        public int Department { get; set; }
-        [ForeignKey("ReportingDeviceID")]
-        public int ReportingDevice { get; set; }
+        // Navigation Properties
+        public virtual BDI BDI { get; set; }
+        public virtual ConnectedDevice ConnectedDevice { get; set; }
+        public virtual Department Department { get; set; }
+        public virtual ReportingDevice ReportingDevice { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace NetworkBillingSystem_Alpha.Models
     public class BDI
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string BDINumber { get; set; }
-        [ForeignKey("DepartmentID")]
-        public string Department { get; set; }
-        [ForeignKey("ConnectionID")]
-        public ICollection<Connection> Connections { get; set; }
+        // Navigation properties
+        public virtual Department Department { get; set; }
+        public virtual ICollection<Connection> Connections { get; set; }
     }
 }

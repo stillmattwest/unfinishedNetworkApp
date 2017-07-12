@@ -11,14 +11,11 @@ namespace NetworkBillingSystem_Alpha.Models
     {
         [Key]
         public int DepartmentID { get; set; }
-        [Index(IsUnique = true)]
         public string Name { get; set; }
-        [Index(IsUnique = true)]
         public string BillingCode { get; set; }
-        [ForeignKey("BDINumber")]
-        public ICollection<BDI>BDIs { get; set; }
-        [ForeignKey("ConnectionID")]
-        public ICollection<Connection>Connections{ get; set; }
+        // Navigation Properties
+        public virtual ICollection<BDI>BDIs { get; set; }
+        public virtual ICollection<Connection>Connections{ get; set; }
 
 
     }

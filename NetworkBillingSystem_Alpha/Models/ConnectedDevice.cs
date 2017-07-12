@@ -11,11 +11,8 @@ namespace NetworkBillingSystem_Alpha.Models
     {
         [Key]
         public string Mac { get; set; }
-        [ForeignKey("BDINumber")]
         public virtual ICollection<BDI> BDIs { get; set; }
-        [ForeignKey("ConnectionID")]
-        public virtual ICollection<Connection> Connections { get; set; }
-        [ForeignKey("DepartmentID")]
+        public virtual ICollection<Connection> Connection { get; set; }
         public virtual ICollection<Department> Departments { get; set; }
     }
 }
