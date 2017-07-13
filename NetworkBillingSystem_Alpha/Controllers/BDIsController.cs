@@ -18,7 +18,8 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: BDIs
         public ActionResult Index()
         {
-            return View(db.BDIs.ToList());
+            var bDIs = db.BDIs.Include(b => b.Department);
+            return View(bDIs.ToList());
         }
 
         // GET: BDIs/Details/5
@@ -39,6 +40,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: BDIs/Create
         public ActionResult Create()
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
@@ -47,7 +49,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BDINumber")] BDI bDI)
+        public ActionResult Create([Bind(Include = "BDINumber,DepartmentID")] BDI bDI)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +58,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 
@@ -71,6 +74,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 
@@ -79,7 +83,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BDINumber")] BDI bDI)
+        public ActionResult Edit([Bind(Include = "BDINumber,DepartmentID")] BDI bDI)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 
