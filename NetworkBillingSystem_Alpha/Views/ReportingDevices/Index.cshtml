@@ -1,0 +1,39 @@
+﻿@model IEnumerable<NetworkBillingSystem_Alpha.Models.ReportingDevice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DeviceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IPAddress)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeviceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IPAddress)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ReportingDeviceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ReportingDeviceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ReportingDeviceID })
+        </td>
+    </tr>
+}
+
+</table>

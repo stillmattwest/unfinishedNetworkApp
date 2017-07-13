@@ -11,7 +11,7 @@ namespace NetworkBillingSystem_Alpha.Models
     {
         [Key]
         public int ReportingDeviceID { get; set; }
-        public int DeviceName{ get; set; }
+        public string DeviceName{ get; set; }
         public string IPAddress { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
