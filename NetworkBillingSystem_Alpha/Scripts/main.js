@@ -7,9 +7,8 @@
             dataType: "json",
             context: document.body
         }).success(function (data) {
-            $(".test-output").html('');
             data.forEach(function (element) {
-                $(".test-output").append("<p>" + element[0] + "," + element[1] + "</p>");
+                $("#connected-device-table").append("<tr><td>"+element[0]+"</td><td>"+element[1]+"</td><td>"+element[2]+"</td></tr>");
             });
         });
     });

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using NetworkBillingSystem_Alpha.Controllers;
 using NetworkBillingSystem_Alpha.DAL;
-using NetworkBillingSystem_Alpha.Utilities;
-using Renci.SshNet;
 using System.Text.RegularExpressions;
+using NetworkBillingSystem_Alpha.Models;
 
 namespace NetworkBillingSystem_Alpha.Utilities
 {
@@ -14,13 +11,16 @@ namespace NetworkBillingSystem_Alpha.Utilities
     {
         private ApplicationContext db = new ApplicationContext();
         private SshMethods sshMethods = new SshMethods();
-        
+
         public List<List<string>> GetBillingData()
         {
-            // This method returns the connected Macs and the associated BDI interface data from a router.
+            // This method returns the connected Macs and the associated BDI interface data from a router, as well as the department associated with that BDI.
 
             // declare result list of string lists
             List<List<string>> result = new List<List<string>>();
+
+            // declare queryable variable for BDIs. This is where we get the departments from
+            IQueryable<BDI> bdiData = db.BDIs;
 
             // get arp data from router
             var data = sshMethods.RunSshCommand("show arp");
@@ -52,6 +52,14 @@ namespace NetworkBillingSystem_Alpha.Utilities
                         string bdi = matchBdi.Match(line).ToString();
                         // add BDI to correct string array in result
                         result[result.Count - 1].Add(bdi);
+                        // query the database to match the BDI number
+                        var department = bdiData
+                            .Where(d => d.BDINumber == bdi)
+                            .Select(d => d.Department.Name)
+                            .FirstOrDefault();
+                        // add department to result list
+                        
+                        result[result.Count - 1].Add(department);
                     }
 
                 }
@@ -63,7 +71,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
 
         public void AddBillingData()
         {
-            
+
         }
     }
 }
