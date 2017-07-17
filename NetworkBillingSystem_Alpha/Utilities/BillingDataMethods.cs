@@ -20,7 +20,9 @@ namespace NetworkBillingSystem_Alpha.Utilities
             List<List<string>> result = new List<List<string>>();
 
             // get arp data from router
-            var data = sshMethods.RunSshCommand("show arp");
+            var arpResult = sshMethods.RunSshCommand("show arp");
+            var data = arpResult[0];
+            var router = arpResult[1];
             //format data
             // splitting result by lines which guarantees we have matching macs and bdis
             string[] splitter = new string[] { Environment.NewLine };
@@ -52,9 +54,9 @@ namespace NetworkBillingSystem_Alpha.Utilities
                         // call function to match department from bdi number
                         string department = getDepartmentForInterface(bdi);
                         // add department to result list
-
                         result[result.Count - 1].Add(department);
-
+                        // add reporting device to result list
+                        result[result.Count - 1].Add(router);
 
                     }
 
@@ -64,6 +66,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
             return result;
         }
 
+        // getDepartmentForInterface queries the database for the department associated with a BDI and returns either that or 'unknown.'
         public string getDepartmentForInterface(string bdi)
         {
             IQueryable<BDI> bdiData = db.BDIs;

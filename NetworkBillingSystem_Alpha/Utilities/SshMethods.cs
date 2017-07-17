@@ -11,10 +11,11 @@ namespace NetworkBillingSystem_Alpha.Utilities
     {
         private ApplicationContext db = new ApplicationContext();
 
-        public string RunSshCommand(string command)
+        public List<string> RunSshCommand(string command)
         {
             var reportingDevices = db.ReportingDevices.ToList();
             var router = reportingDevices[0];
+            var routerName = router.DeviceName;
             var Ip = router.IPAddress;
             var user = router.UserName;
             var pass = router.Password;
@@ -24,7 +25,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
             var data = ssh.RunCommand(command);
             ssh.Disconnect();
 
-            return data.Result;
+            return new List<string> { data.Result, routerName };
         }
     }
 }

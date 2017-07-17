@@ -13,7 +13,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         [HttpGet]
         public JsonResult getArp()
         {
-            var data = sshMethods.RunSshCommand("show arp").Split(',');
+            var data = sshMethods.RunSshCommand("show arp")[0].Split(',');
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
