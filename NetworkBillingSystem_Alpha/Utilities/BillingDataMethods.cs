@@ -19,9 +19,6 @@ namespace NetworkBillingSystem_Alpha.Utilities
             // declare result list of string lists
             List<List<string>> result = new List<List<string>>();
 
-            // declare queryable variable for BDIs. This is where we get the departments from
-            IQueryable<BDI> bdiData = db.BDIs;
-
             // get arp data from router
             var data = sshMethods.RunSshCommand("show arp");
             //format data
@@ -52,14 +49,13 @@ namespace NetworkBillingSystem_Alpha.Utilities
                         string bdi = matchBdi.Match(line).ToString();
                         // add BDI to correct string array in result
                         result[result.Count - 1].Add(bdi);
-                        // query the database to match the BDI number
-                        var department = bdiData
-                            .Where(d => d.BDINumber == bdi)
-                            .Select(d => d.Department.Name)
-                            .FirstOrDefault();
+                        // call function to match department from bdi number
+                        string department = getDepartmentForInterface(bdi);
                         // add department to result list
-                        
+
                         result[result.Count - 1].Add(department);
+
+
                     }
 
                 }
@@ -68,10 +64,22 @@ namespace NetworkBillingSystem_Alpha.Utilities
             return result;
         }
 
-
-        public void AddBillingData()
+        public string getDepartmentForInterface(string bdi)
         {
-
+            IQueryable<BDI> bdiData = db.BDIs;
+            var department = bdiData
+                            .Where(d => d.BDINumber == bdi)
+                            .Select(d => d.Department.Name)
+                            .FirstOrDefault();
+            if (department != null)
+            {
+                return department;
+            }
+            else
+            {
+                return "unknown";
+            }
         }
+
     }
 }
