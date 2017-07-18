@@ -1,0 +1,23 @@
+﻿@model IEnumerable<NetworkBillingSystem_Alpha.Models.ConnectedDevice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Mac }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Mac })
+        </td>
+    </tr>
+}
+
+</table>

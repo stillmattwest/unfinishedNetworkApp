@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NetworkBillingSystem_Alpha.Models.Connection>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+   Total Unique Connections: @Model.Count()
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BDI.BDINumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectedDevice.Mac)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReportingDevice.DeviceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectionDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BDI.BDINumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectedDevice.Mac)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportingDevice.DeviceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConnectionDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.ConnectionID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ConnectionID })
+        </td>
+    </tr>
+}
+
+</table>

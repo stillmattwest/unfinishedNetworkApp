@@ -202,6 +202,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArpTest.cs" />
     <Compile Include="Controllers\BDIsController.cs" />
+    <Compile Include="Controllers\ConnectedDevicesController.cs" />
+    <Compile Include="Controllers\ConnectionsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -302,6 +304,12 @@
     <Content Include="Views\BDIs\Details.cshtml" />
     <Content Include="Views\BDIs\Edit.cshtml" />
     <Content Include="Views\BDIs\Index.cshtml" />
+    <Content Include="Views\Connections\Delete.cshtml" />
+    <Content Include="Views\Connections\Details.cshtml" />
+    <Content Include="Views\Connections\Index.cshtml" />
+    <Content Include="Views\ConnectedDevices\Delete.cshtml" />
+    <Content Include="Views\ConnectedDevices\Details.cshtml" />
+    <Content Include="Views\ConnectedDevices\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
