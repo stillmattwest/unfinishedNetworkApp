@@ -63,6 +63,8 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 }
             } // end foreach loop
 
+            addBillingDataToDB(result);
+
             return result;
         }
 
@@ -82,6 +84,54 @@ namespace NetworkBillingSystem_Alpha.Utilities
             {
                 return "unknown";
             }
+        }
+
+        public void addBillingDataToDB(List<List<string>> connectionInfo)
+        {
+            foreach (List<string> item in connectionInfo)
+            {
+
+                string itemMac = item[0];
+                string itemBdi = item[1];
+                string itemDepartment = item[2];
+                string itemRouter = item[3];
+
+                ConnectedDevice cd = new ConnectedDevice();
+                Connection con = new Connection();
+
+                cd.Mac = itemMac;
+
+                // check database for existing connected device. If not there, add it.
+                if (!db.ConnectedDevices.Any(x => x.Mac == cd.Mac))
+                {
+                    db.ConnectedDevices.Add(cd);
+                    db.SaveChanges();
+                }
+
+                // get reporting device id from router name
+                IQueryable<ReportingDevice> rdData = db.ReportingDevices;
+                int reportingDeviceID = rdData
+                    .Where(x => x.DeviceName == itemRouter)
+                    .Select(x => x.ReportingDeviceID)
+                    .FirstOrDefault();
+
+                // auto-create new BDI if it doesn't exist in database - TODO - notify administrator that a new BDI has been reported and needs additional data.
+                if(!db.BDIs.Any(x => x.BDINumber == itemBdi))
+                {
+                    BDI bdi = new BDI();
+                    bdi.BDINumber = itemBdi;
+                    db.BDIs.Add(bdi);
+                }
+
+                con.ConnectionDateTime = DateTime.Now;
+                con.BDINumber = itemBdi;
+                con.Mac = itemMac;
+                con.ReportingDeviceID = reportingDeviceID;
+
+                db.Connections.Add(con);
+                db.SaveChanges();
+            }
+
         }
 
     }

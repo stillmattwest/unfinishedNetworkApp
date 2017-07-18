@@ -12,28 +12,36 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Department.Name)
+            @Html.DisplayNameFor(model => model.BDINumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BDINumber)
+            Department
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BDINumber)
-            
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Department.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BDINumber }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BDINumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BDINumber })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BDINumber)
+            </td>
+
+            @if (item.Department == null)
+            {
+                <td>Unknown</td>
+            }
+            else
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department.Name)
+                </td>
+            }
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.BDINumber }) |
+                @Html.ActionLink("Details", "Details", new { id = item.BDINumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.BDINumber })
+            </td>
+        </tr>
+    }
 
 </table>

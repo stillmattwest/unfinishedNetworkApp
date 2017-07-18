@@ -12,7 +12,7 @@ namespace NetworkBillingSystem_Alpha.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string BDINumber { get; set; }
-        public int DepartmentID { get; set; }
+        public int? DepartmentID { get; set; }
         // Navigation properties
         public virtual Department Department { get; set; }
         public virtual ICollection<Connection> Connections { get; set; }
