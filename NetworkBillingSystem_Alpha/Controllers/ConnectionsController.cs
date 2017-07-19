@@ -19,7 +19,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         public ActionResult Index()
         {
             var connections = db.Connections.Include(c => c.BDI).Include(c => c.ConnectedDevice).Include(c => c.Department).Include(c => c.ReportingDevice);
-            return View(connections.ToList());
+            return View(connections.ToList().OrderBy(x => x.BDINumber));
         }
 
         // GET: Connections/Details/5

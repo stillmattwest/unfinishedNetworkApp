@@ -74,7 +74,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(db.Departments.OrderBy(x => x.Name), "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 
@@ -91,7 +91,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(db.Departments.OrderBy(x => x.Name), "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 

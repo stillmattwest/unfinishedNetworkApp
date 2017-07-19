@@ -105,7 +105,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 if (!db.ConnectedDevices.Any(x => x.Mac == cd.Mac))
                 {
                     db.ConnectedDevices.Add(cd);
-                    db.SaveChanges();
+                  //  db.SaveChanges();
                 }
 
                 // get ConnectedDeviceID from database
@@ -130,10 +130,20 @@ namespace NetworkBillingSystem_Alpha.Utilities
                     db.BDIs.Add(bdi);
                 }
 
+                // get departmentID from BDI database. departmentID is a nullable field
+                IQueryable<BDI> bdiLIst = db.BDIs;
+                var departmentID = bdiLIst
+                    .Where(x => x.BDINumber == itemBdi)
+                    .Select(x => x.DepartmentID)
+                    .FirstOrDefault();
+
                 con.ConnectionDateTime = DateTime.Now;
                 con.BDINumber = itemBdi;
                 con.ConnectedDeviceID = cdId;
                 con.ReportingDeviceID = reportingDeviceID;
+                con.DepartmentID = departmentID;
+                
+                
 
                 db.Connections.Add(con);
                 db.SaveChanges();
