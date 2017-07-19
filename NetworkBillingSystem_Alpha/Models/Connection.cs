@@ -15,8 +15,9 @@ namespace NetworkBillingSystem_Alpha.Models
         [ForeignKey("BDI")]
         public string BDINumber { get; set; }
         [ForeignKey("ConnectedDevice")]
-        public string Mac { get; set; }
+        public int ConnectedDeviceID{ get; set; }
         public int ReportingDeviceID { get; set; }
+        public int? DepartmentID { get; set; }
         // Navigation Properties
         public virtual BDI BDI { get; set; }
         public virtual ConnectedDevice ConnectedDevice { get; set; }

@@ -7,8 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NetworkBillingSystem_Alpha.DAL;
+using NetworkBillingSystem_Alpha.Models;
 
-namespace NetworkBillingSystem_Alpha.Models
+namespace NetworkBillingSystem_Alpha.Controllers
 {
     public class ReportingDevicesController : Controller
     {

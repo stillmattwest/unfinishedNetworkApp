@@ -10,9 +10,17 @@
     <h4>ConnectedDevice</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Mac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mac)
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Mac }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ConnectedDeviceID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

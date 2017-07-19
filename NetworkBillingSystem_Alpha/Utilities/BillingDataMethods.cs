@@ -108,6 +108,13 @@ namespace NetworkBillingSystem_Alpha.Utilities
                     db.SaveChanges();
                 }
 
+                // get ConnectedDeviceID from database
+                IQueryable<ConnectedDevice> connectedDevices = db.ConnectedDevices;
+                int cdId = connectedDevices
+                    .Where(x => x.Mac == itemMac)
+                    .Select(x => x.ConnectedDeviceID)
+                    .FirstOrDefault();
+
                 // get reporting device id from router name
                 IQueryable<ReportingDevice> rdData = db.ReportingDevices;
                 int reportingDeviceID = rdData
@@ -125,7 +132,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
 
                 con.ConnectionDateTime = DateTime.Now;
                 con.BDINumber = itemBdi;
-                con.Mac = itemMac;
+                con.ConnectedDeviceID = cdId;
                 con.ReportingDeviceID = reportingDeviceID;
 
                 db.Connections.Add(con);

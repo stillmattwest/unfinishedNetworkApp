@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Interface Name
+            @Html.DisplayNameFor(model => model.BDI.BDINumber)
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            Connected Device MAC
+            @Html.DisplayNameFor(model => model.ConnectedDevice.Mac)
         </dt>
 
         <dd>
@@ -27,7 +27,15 @@
         </dd>
 
         <dt>
-            Reporting Device
+            @Html.DisplayNameFor(model => model.Department.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportingDevice.DeviceName)
         </dt>
 
         <dd>
@@ -35,7 +43,7 @@
         </dd>
 
         <dt>
-            Connection Date / Time
+            @Html.DisplayNameFor(model => model.ConnectionDateTime)
         </dt>
 
         <dd>

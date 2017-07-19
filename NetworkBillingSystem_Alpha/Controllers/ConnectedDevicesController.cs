@@ -22,7 +22,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         }
 
         // GET: ConnectedDevices/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -42,8 +42,56 @@ namespace NetworkBillingSystem_Alpha.Controllers
             return View();
         }
 
+        // POST: ConnectedDevices/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ConnectedDeviceID,Mac")] ConnectedDevice connectedDevice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ConnectedDevices.Add(connectedDevice);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(connectedDevice);
+        }
+
+        // GET: ConnectedDevices/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ConnectedDevice connectedDevice = db.ConnectedDevices.Find(id);
+            if (connectedDevice == null)
+            {
+                return HttpNotFound();
+            }
+            return View(connectedDevice);
+        }
+
+        // POST: ConnectedDevices/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ConnectedDeviceID,Mac")] ConnectedDevice connectedDevice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(connectedDevice).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(connectedDevice);
+        }
+
         // GET: ConnectedDevices/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -60,7 +108,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // POST: ConnectedDevices/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
             ConnectedDevice connectedDevice = db.ConnectedDevices.Find(id);
             db.ConnectedDevices.Remove(connectedDevice);
