@@ -13,5 +13,16 @@
         });
     });
 
+    $("#get-report-btn").click(function () {
+        var idData = $("#DepartmentID").val();
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:64224/DepartmentReport/GetReport/" + idData,
+        }).success(function (data) {
+            console.log(data);
+        });
 
-});
+    });
+
+
+}); // end document ready

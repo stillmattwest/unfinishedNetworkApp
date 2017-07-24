@@ -17,15 +17,14 @@
         <div class="col-md-10">
             
             @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
+            <div>
+                <button input type="button" class="btn btn-default" id="get-report-btn">Get Report</button>
+            </div>
+
         </div>
 
     </div>
     <hr />
-    <div class="form-group">
-        <div class="col-md-10" >
-            <input type="submit" value="Get Report" class="btn btn-default" />
-        </div>
-    </div>
 }
 
 
