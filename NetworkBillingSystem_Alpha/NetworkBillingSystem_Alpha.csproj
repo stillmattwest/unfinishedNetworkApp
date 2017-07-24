@@ -205,6 +205,7 @@
     <Compile Include="Controllers\ConnectedDevicesController.cs" />
     <Compile Include="Controllers\ConnectionsController.cs" />
     <Compile Include="Controllers\DepartmentsController.cs" />
+    <Compile Include="Controllers\DepartmentReport.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReportingDevicesController.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Views\ConnectedDevices\Details.cshtml" />
     <Content Include="Views\ConnectedDevices\Edit.cshtml" />
     <Content Include="Views\ConnectedDevices\Index.cshtml" />
+    <Content Include="Views\DepartmentReport\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
