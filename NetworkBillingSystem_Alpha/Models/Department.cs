@@ -16,6 +16,7 @@ namespace NetworkBillingSystem_Alpha.Models
         // Navigation Properties
         public virtual ICollection<BDI>BDIs { get; set; }
         public virtual ICollection<Connection>Connections{ get; set; }
+        public virtual ICollection<ConnectedDevice> ConnectedDevices { get; set;}
 
 
     }

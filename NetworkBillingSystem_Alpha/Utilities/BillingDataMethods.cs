@@ -4,6 +4,7 @@ using System.Linq;
 using NetworkBillingSystem_Alpha.DAL;
 using System.Text.RegularExpressions;
 using NetworkBillingSystem_Alpha.Models;
+using System.Data.Entity.Migrations;
 
 namespace NetworkBillingSystem_Alpha.Utilities
 {
@@ -100,12 +101,14 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 Connection con = new Connection();
 
                 cd.Mac = itemMac;
+                
+               
 
                 // check database for existing connected device. If not there, add it.
                 if (!db.ConnectedDevices.Any(x => x.Mac == cd.Mac))
                 {
                     db.ConnectedDevices.Add(cd);
-                  //  db.SaveChanges();
+                    
                 }
 
                 // get ConnectedDeviceID from database
@@ -141,11 +144,18 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 con.BDINumber = itemBdi;
                 con.ConnectedDeviceID = cdId;
                 con.ReportingDeviceID = reportingDeviceID;
-                con.DepartmentID = departmentID;
-                
-                
+                con.DepartmentID = departmentID;                
 
                 db.Connections.Add(con);
+
+                // get connected device by Mac
+                var conDev = db.ConnectedDevices.Find(cdId);
+                // get last connection
+                var newConnection = db.Connections
+                    .OrderByDescending(x => x.ConnectionID)
+                    .FirstOrDefault();
+                conDev.Connection.Add(newConnection);
+
                 db.SaveChanges();
             }
 

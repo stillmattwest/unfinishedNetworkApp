@@ -17,7 +17,7 @@
         var idData = $("#DepartmentID").val();
         $.ajax({
             type: "GET",
-            url: "http://localhost:64224/DepartmentReport/GetReport/" + idData,
+            url: "http://localhost:64224/DepartmentReport/GetBasicDepartmentReport/" + idData,
         }).success(function (data) {
             console.log(data);
         });
