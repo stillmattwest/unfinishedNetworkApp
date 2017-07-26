@@ -12,6 +12,14 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.ReportingDevice.DeviceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportingDevice.DeviceName)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.ConnectionDateTime)
         </dt>
 
@@ -20,11 +28,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ReportingDeviceID)
+            @Html.DisplayNameFor(model => model.DeviceName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ReportingDeviceID)
+            @Html.DisplayFor(model => model.DeviceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mac)
         </dd>
 
     </dl>

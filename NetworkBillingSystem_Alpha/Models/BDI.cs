@@ -19,7 +19,7 @@ namespace NetworkBillingSystem_Alpha.Models
         public BDI()
         {
             ConnectedDevices = new List<ConnectedDevice>();
-            ConnectedDevices.Add(new ConnectedDevice());
+            Department = new Department();
         }
 
     }

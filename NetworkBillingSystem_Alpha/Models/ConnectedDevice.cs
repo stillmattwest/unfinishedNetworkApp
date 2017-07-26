@@ -15,7 +15,7 @@ namespace NetworkBillingSystem_Alpha.Models
        
         public ConnectedDevice()
         {
-            this.Connections = new List<Connection>();
+            Connections = new List<Connection>();
         }
     }
 }

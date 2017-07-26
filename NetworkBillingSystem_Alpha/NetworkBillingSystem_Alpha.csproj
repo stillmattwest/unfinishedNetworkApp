@@ -225,6 +225,14 @@
     <Compile Include="Migrations\201707261754351_bdiForeignKey.Designer.cs">
       <DependentUpon>201707261754351_bdiForeignKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707262230349_updatedConnectionModel.cs" />
+    <Compile Include="Migrations\201707262230349_updatedConnectionModel.Designer.cs">
+      <DependentUpon>201707262230349_updatedConnectionModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707262242179_clearedDataBase20170726.cs" />
+    <Compile Include="Migrations\201707262242179_clearedDataBase20170726.Designer.cs">
+      <DependentUpon>201707262242179_clearedDataBase20170726.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BDI.cs" />
@@ -315,16 +323,16 @@
     <Content Include="Views\ConnectedDevices\Details.cshtml" />
     <Content Include="Views\ConnectedDevices\Edit.cshtml" />
     <Content Include="Views\ConnectedDevices\Index.cshtml" />
-    <Content Include="Views\Connections\Create.cshtml" />
-    <Content Include="Views\Connections\Delete.cshtml" />
-    <Content Include="Views\Connections\Details.cshtml" />
-    <Content Include="Views\Connections\Edit.cshtml" />
-    <Content Include="Views\Connections\Index.cshtml" />
     <Content Include="Views\BDIs\Create.cshtml" />
     <Content Include="Views\BDIs\Delete.cshtml" />
     <Content Include="Views\BDIs\Details.cshtml" />
     <Content Include="Views\BDIs\Edit.cshtml" />
     <Content Include="Views\BDIs\Index.cshtml" />
+    <Content Include="Views\Connections\Create.cshtml" />
+    <Content Include="Views\Connections\Delete.cshtml" />
+    <Content Include="Views\Connections\Details.cshtml" />
+    <Content Include="Views\Connections\Edit.cshtml" />
+    <Content Include="Views\Connections\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,6 +354,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707261754351_bdiForeignKey.resx">
       <DependentUpon>201707261754351_bdiForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262230349_updatedConnectionModel.resx">
+      <DependentUpon>201707262230349_updatedConnectionModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707262242179_clearedDataBase20170726.resx">
+      <DependentUpon>201707262242179_clearedDataBase20170726.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

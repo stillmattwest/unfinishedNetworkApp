@@ -18,8 +18,8 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: BDIs
         public ActionResult Index()
         {
-            var bDIs = db.BDIs.Include(b => b.Department);
-            return View(bDIs.ToList());
+            var bDIs = db.BDIs.Include(b => b.Department).OrderBy(x => x.BDINumber);
+            return View(bDIs.ToList().OrderBy(x => x.BDINumber));
         }
 
         // GET: BDIs/Details/5
@@ -74,7 +74,9 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
+
+            var depts = db.Departments.ToList().OrderBy(x => x.Name);
+            ViewBag.DepartmentID = new SelectList(depts, "DepartmentID", "Name", bDI.DepartmentID);
             return View(bDI);
         }
 

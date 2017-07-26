@@ -14,13 +14,20 @@
         <th>
             @Html.DisplayNameFor(model => model.Mac)
         </th>
+        <th>
+            Last Connection
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Mac)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Connections.LastOrDefault().ConnectionDateTime)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ConnectedDeviceID }) |

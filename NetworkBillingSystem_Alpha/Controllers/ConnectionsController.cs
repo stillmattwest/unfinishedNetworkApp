@@ -18,7 +18,8 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: Connections
         public ActionResult Index()
         {
-            return View(db.Connections.ToList());
+            var connections = db.Connections.Include(c => c.ReportingDevice);
+            return View(connections.ToList());
         }
 
         // GET: Connections/Details/5
@@ -39,6 +40,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: Connections/Create
         public ActionResult Create()
         {
+            ViewBag.ReportingDeviceID = new SelectList(db.ReportingDevices, "ReportingDeviceID", "DeviceName");
             return View();
         }
 
@@ -47,7 +49,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ConnectionID,ConnectionDateTime,ReportingDeviceID")] Connection connection)
+        public ActionResult Create([Bind(Include = "ConnectionID,ConnectionDateTime,ReportingDeviceID,DeviceName,Mac")] Connection connection)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +58,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ReportingDeviceID = new SelectList(db.ReportingDevices, "ReportingDeviceID", "DeviceName", connection.ReportingDeviceID);
             return View(connection);
         }
 
@@ -71,6 +74,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ReportingDeviceID = new SelectList(db.ReportingDevices, "ReportingDeviceID", "DeviceName", connection.ReportingDeviceID);
             return View(connection);
         }
 
@@ -79,7 +83,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConnectionID,ConnectionDateTime,ReportingDeviceID")] Connection connection)
+        public ActionResult Edit([Bind(Include = "ConnectionID,ConnectionDateTime,ReportingDeviceID,DeviceName,Mac")] Connection connection)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +91,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ReportingDeviceID = new SelectList(db.ReportingDevices, "ReportingDeviceID", "DeviceName", connection.ReportingDeviceID);
             return View(connection);
         }
 

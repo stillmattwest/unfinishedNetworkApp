@@ -14,5 +14,8 @@ namespace NetworkBillingSystem_Alpha.Models
         public int ConnectionID { get; set; }
         public DateTime ConnectionDateTime { get; set; }
         public virtual int ReportingDeviceID { get; set; }
+        public virtual string DeviceName { get; set; }
+        public virtual string Mac { get; set; }
+        public virtual ReportingDevice ReportingDevice { get; set; }
     }
 }

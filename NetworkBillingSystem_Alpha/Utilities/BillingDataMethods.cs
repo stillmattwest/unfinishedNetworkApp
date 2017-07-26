@@ -85,7 +85,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 AutoCreateBDI(itemBdi);
 
                 // get BDI from database
-                BDI bdi = db.BDIs.Local
+                BDI bdi = db.BDIs
                     .Where(x => x.BDINumber == itemBdi)
                     .FirstOrDefault();
 
@@ -113,6 +113,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 Connection connection = new Connection();
                 connection.ConnectionDateTime = DateTime.Now;
                 connection.ReportingDeviceID = reportingDevice.ReportingDeviceID;
+                connection.Mac = itemMac;
 
                 // add connection to db
                 db.Connections.Add(connection);
@@ -163,6 +164,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 BDI newBdi = new BDI();
                 newBdi.BDINumber = bdi;
                 db.BDIs.Add(newBdi);
+                db.SaveChanges();
             }
 
         }

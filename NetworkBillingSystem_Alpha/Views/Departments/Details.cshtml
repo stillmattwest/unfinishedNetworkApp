@@ -25,6 +25,15 @@
         <dd>
             @Html.DisplayFor(model => model.BillingCode)
         </dd>
+        <dt>
+            Associated Interfaces
+        </dt>
+        @foreach(var item in Model.BDIs)
+        {
+            <dd>
+                @item.BDINumber
+            </dd>
+        }
 
     </dl>
 </div>

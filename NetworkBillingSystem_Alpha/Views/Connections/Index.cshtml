@@ -15,9 +15,11 @@
             @Html.DisplayNameFor(model => model.ConnectionDateTime)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReportingDeviceID)
+            Connecting Device
         </th>
-        <th></th>
+        <th>
+           Reporting Device
+        </th>        
     </tr>
 
 @foreach (var item in Model) {
@@ -26,8 +28,11 @@
             @Html.DisplayFor(modelItem => item.ConnectionDateTime)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ReportingDeviceID)
+            @Html.DisplayFor(modelItem => item.Mac)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportingDevice.DeviceName)
+        </td>  
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ConnectionID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ConnectionID }) |

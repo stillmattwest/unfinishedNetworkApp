@@ -33,6 +33,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(connectedDevice);
         }
 
