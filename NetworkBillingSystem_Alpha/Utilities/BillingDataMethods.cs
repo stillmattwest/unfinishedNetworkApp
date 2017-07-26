@@ -85,7 +85,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 AutoCreateBDI(itemBdi);
 
                 // get BDI from database
-                BDI bdi = db.BDIs
+                BDI bdi = db.BDIs.Local
                     .Where(x => x.BDINumber == itemBdi)
                     .FirstOrDefault();
 

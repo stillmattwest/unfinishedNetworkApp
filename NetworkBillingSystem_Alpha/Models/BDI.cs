@@ -16,7 +16,8 @@ namespace NetworkBillingSystem_Alpha.Models
   
         public BDI()
         {
-            this.ConnectedDevices = new List<ConnectedDevice>();
+            ConnectedDevices = new List<ConnectedDevice>();
+            ConnectedDevices.Add(new ConnectedDevice());
         }
 
     }
