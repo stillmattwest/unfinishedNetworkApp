@@ -201,7 +201,11 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArpTest.cs" />
+    <Compile Include="Controllers\BDIsController.cs" />
+    <Compile Include="Controllers\ConnectedDevicesController.cs" />
+    <Compile Include="Controllers\ConnectionsController.cs" />
     <Compile Include="Controllers\DepartmentReportController.cs" />
+    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReportingDevicesController.cs" />
@@ -212,6 +216,14 @@
     <Compile Include="Migrations\201707261614327_updateModelCollections.cs" />
     <Compile Include="Migrations\201707261614327_updateModelCollections.Designer.cs">
       <DependentUpon>201707261614327_updateModelCollections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707261743552_updateDbiWithDepartment.cs" />
+    <Compile Include="Migrations\201707261743552_updateDbiWithDepartment.Designer.cs">
+      <DependentUpon>201707261743552_updateDbiWithDepartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707261754351_bdiForeignKey.cs" />
+    <Compile Include="Migrations\201707261754351_bdiForeignKey.Designer.cs">
+      <DependentUpon>201707261754351_bdiForeignKey.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -293,6 +305,26 @@
     <Content Include="Views\ReportingDevices\Index.cshtml" />
     <Content Include="Views\DepartmentReport\index.cshtml" />
     <Content Include="Views\DepartmentReport\GetReport.cshtml" />
+    <Content Include="Views\Departments\Create.cshtml" />
+    <Content Include="Views\Departments\Delete.cshtml" />
+    <Content Include="Views\Departments\Details.cshtml" />
+    <Content Include="Views\Departments\Edit.cshtml" />
+    <Content Include="Views\Departments\Index.cshtml" />
+    <Content Include="Views\ConnectedDevices\Create.cshtml" />
+    <Content Include="Views\ConnectedDevices\Delete.cshtml" />
+    <Content Include="Views\ConnectedDevices\Details.cshtml" />
+    <Content Include="Views\ConnectedDevices\Edit.cshtml" />
+    <Content Include="Views\ConnectedDevices\Index.cshtml" />
+    <Content Include="Views\Connections\Create.cshtml" />
+    <Content Include="Views\Connections\Delete.cshtml" />
+    <Content Include="Views\Connections\Details.cshtml" />
+    <Content Include="Views\Connections\Edit.cshtml" />
+    <Content Include="Views\Connections\Index.cshtml" />
+    <Content Include="Views\BDIs\Create.cshtml" />
+    <Content Include="Views\BDIs\Delete.cshtml" />
+    <Content Include="Views\BDIs\Details.cshtml" />
+    <Content Include="Views\BDIs\Edit.cshtml" />
+    <Content Include="Views\BDIs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,6 +340,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707261614327_updateModelCollections.resx">
       <DependentUpon>201707261614327_updateModelCollections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707261743552_updateDbiWithDepartment.resx">
+      <DependentUpon>201707261743552_updateDbiWithDepartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707261754351_bdiForeignKey.resx">
+      <DependentUpon>201707261754351_bdiForeignKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

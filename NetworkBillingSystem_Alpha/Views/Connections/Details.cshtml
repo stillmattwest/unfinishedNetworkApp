@@ -1,0 +1,34 @@
+﻿@model NetworkBillingSystem_Alpha.Models.Connection
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Connection</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ConnectionDateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConnectionDateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReportingDeviceID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReportingDeviceID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ConnectionID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
