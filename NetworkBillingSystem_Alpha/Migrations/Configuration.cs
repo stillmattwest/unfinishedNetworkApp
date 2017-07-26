@@ -17,7 +17,7 @@ namespace NetworkBillingSystem_Alpha.Migrations
         {
             context.Departments.AddOrUpdate(
                 d => d.Name,
-                new Department { Name = "Information Technology", BillingCode ="todo",},
+                new Department { Name = "Information Technology", BillingCode = "todo", },
                 new Department { Name = "Grand Jury", BillingCode = "todo", },
                 new Department { Name = "Public Health", BillingCode = "todo", },
                 new Department { Name = "Environmental Health", BillingCode = "todo", },
@@ -54,7 +54,7 @@ namespace NetworkBillingSystem_Alpha.Migrations
 
             context.ReportingDevices.AddOrUpdate(
                 d => d.DeviceName,
-                new ReportingDevice { DeviceName="mdcR", IPAddress = "10.192.1.1",UserName ="Manager", Password ="G00dbye April."}
+                new ReportingDevice { DeviceName = "mdcR", IPAddress = "10.192.1.1", UserName = "Manager", Password = "G00dbye April." }
 
                 );
         }

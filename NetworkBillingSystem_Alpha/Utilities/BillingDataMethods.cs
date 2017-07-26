@@ -53,7 +53,7 @@ namespace NetworkBillingSystem_Alpha.Utilities
                         // add BDI to correct string array in result
                         result[result.Count - 1].Add(bdi);
                         // call function to match department from bdi number
-                        string department = getDepartmentForInterface(bdi);
+                        string department = getDepartmentFromInterface(bdi);
                         // add department to result list
                         result[result.Count - 1].Add(department);
                         // add reporting device to result list
@@ -69,24 +69,8 @@ namespace NetworkBillingSystem_Alpha.Utilities
             return result;
         }
 
-        // getDepartmentForInterface queries the database for the department associated with a BDI and returns either that or 'unknown.'
-        public string getDepartmentForInterface(string bdi)
-        {
-            IQueryable<BDI> bdiData = db.BDIs;
-            var department = bdiData
-                            .Where(d => d.BDINumber == bdi)
-                            .Select(d => d.Department.Name)
-                            .FirstOrDefault();
-            if (department != null)
-            {
-                return department;
-            }
-            else
-            {
-                return "unknown";
-            }
-        }
 
+        // TODO - Break this up into SRP functions
         public void addBillingDataToDB(List<List<string>> connectionInfo)
         {
             foreach (List<string> item in connectionInfo)
@@ -97,66 +81,88 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 string itemDepartment = item[2];
                 string itemRouter = item[3];
 
-                ConnectedDevice cd = new ConnectedDevice();
-                Connection con = new Connection();
+                // autocreate new BDI if doesn't exist in database
+                AutoCreateBDI(itemBdi);
 
-                cd.Mac = itemMac;
-                
-               
+                // get BDI from database
+                BDI bdi = db.BDIs
+                    .Where(x => x.BDINumber == itemBdi)
+                    .FirstOrDefault();
 
-                // check database for existing connected device. If not there, add it.
-                if (!db.ConnectedDevices.Any(x => x.Mac == cd.Mac))
+                // check to see if connectedDevice Mac exists in database
+                // if not create it
+                if (!db.ConnectedDevices.Any(x => x.Mac == itemMac))
                 {
-                    db.ConnectedDevices.Add(cd);
-                    
+                    ConnectedDevice newConnDev = new ConnectedDevice();
+                    newConnDev.Mac = itemMac;
+                    db.ConnectedDevices.Add(newConnDev);
                 }
 
-                // get ConnectedDeviceID from database
-                IQueryable<ConnectedDevice> connectedDevices = db.ConnectedDevices;
-                int cdId = connectedDevices
-                    .Where(x => x.Mac == itemMac)
-                    .Select(x => x.ConnectedDeviceID)
-                    .FirstOrDefault();
+                // Entity Framework stores this data to local datasource, not persisted to db yet.
+                // grab ConnectedDevice from local datasource and assign it to cd
+                var cd = db.ConnectedDevices.Local
+                     .Where(x => x.Mac == itemMac)
+                     .FirstOrDefault();
 
                 // get reporting device id from router name
-                IQueryable<ReportingDevice> rdData = db.ReportingDevices;
-                int reportingDeviceID = rdData
+                var reportingDevice = db.ReportingDevices
                     .Where(x => x.DeviceName == itemRouter)
-                    .Select(x => x.ReportingDeviceID)
                     .FirstOrDefault();
 
-                // auto-create new BDI if it doesn't exist in database - TODO - notify administrator that a new BDI has been reported and needs additional data.
-                if(!db.BDIs.Any(x => x.BDINumber == itemBdi))
-                {
-                    BDI bdi = new BDI();
-                    bdi.BDINumber = itemBdi;
-                    db.BDIs.Add(bdi);
-                }
+                // create new Connection object
+                Connection connection = new Connection();
+                connection.ConnectionDateTime = DateTime.Now;
+                connection.ReportingDeviceID = reportingDevice.ReportingDeviceID;
 
-                // get departmentID from BDI database. departmentID is a nullable field
-                IQueryable<BDI> bdiLIst = db.BDIs;
-                var departmentID = bdiLIst
-                    .Where(x => x.BDINumber == itemBdi)
-                    .Select(x => x.DepartmentID)
-                    .FirstOrDefault();
+                // add connection to db
+                db.Connections.Add(connection);
 
-                con.ConnectionDateTime = DateTime.Now;
-                con.BDINumber = itemBdi;
-                con.ConnectedDeviceID = cdId;
-                con.ReportingDeviceID = reportingDeviceID;
-                con.DepartmentID = departmentID;                
-
-                db.Connections.Add(con);
-
-                // get connected device by Mac
-                var conDev = db.ConnectedDevices.Find(cdId);
-                // get last connection
-                var newConnection = db.Connections
+                // get new connection
+                connection = db.Connections.Local
                     .OrderByDescending(x => x.ConnectionID)
                     .FirstOrDefault();
-                conDev.Connection.Add(newConnection);
+
+                // add connection to connected device
+                cd.Connections.Add(connection);
+                // add connected device to bdi
+                bdi.ConnectedDevices.Add(cd);
+
+
+                // Entity Framework is smart enough to track the changes above so we just save them
 
                 db.SaveChanges();
+            }
+
+        }
+
+        public string getDepartmentFromInterface(string bdi)
+        {
+            // use BDI to find department
+            IQueryable<Department> dept = db.Departments;
+
+            var deptName = dept
+                .Where(x => x.BDIs.Any(d => d.BDINumber == bdi))
+                .Select(x => x.Name)
+                .FirstOrDefault();
+
+            if (!String.IsNullOrEmpty(deptName))
+            {
+                return deptName;
+            }
+
+            return "unknown";
+
+        }
+
+        // auto-create new BDI if it doesn't exist in database 
+        //TODO - notify administrator that a new BDI has been reported and needs additional data.
+        public void AutoCreateBDI(string bdi)
+        {
+            if (!db.BDIs.Any(x => x.BDINumber == bdi))
+            {
+                BDI newBdi = new BDI();
+                newBdi.BDINumber = bdi;
+                db.BDIs.Add(newBdi);
             }
 
         }

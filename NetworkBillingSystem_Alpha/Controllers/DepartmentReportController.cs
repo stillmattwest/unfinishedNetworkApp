@@ -47,8 +47,9 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 bdiList.Add(item.BDINumber);
             }
             data.Add("bdis", bdiList);
-            data.Add("total-connected-devices", dept.ConnectedDevices.Count());
-            data.Add("total-connections", dept.Connections.Count());
+            // fix
+            //data.Add("total-connected-devices", dept.ConnectedDevices.Count());
+            //data.Add("total-connections", dept.Connections.Count());
 
             return Json(data, JsonRequestBehavior.AllowGet);
 
@@ -77,19 +78,20 @@ namespace NetworkBillingSystem_Alpha.Controllers
             data.Add("bdis", bdiList);
 
             //getConnectionData. Should be a list.
-            var connections = dept.Connections;
-            List<Dictionary<string, dynamic>> connectionList = new List<Dictionary<string, dynamic>>();
-            foreach (var item in connections)
-            {
-                Dictionary<string, dynamic> connection = new Dictionary<string, dynamic>();
-                connection.Add("bdi", item.BDINumber);
-                connection.Add("mac", item.ConnectedDevice.Mac);
-                connection.Add("reporting-device",item.ReportingDevice.DeviceName);
-                connection.Add("date", item.ConnectionDateTime.ToString());
-                connectionList.Add(connection);
-            }
+            //fix
+            //var connections = dept.Connections;
+            //List<Dictionary<string, dynamic>> connectionList = new List<Dictionary<string, dynamic>>();
+            //foreach (var item in connections)
+            //{
+            //    Dictionary<string, dynamic> connection = new Dictionary<string, dynamic>();
+            //    connection.Add("bdi", item.BDINumber);
+            //    connection.Add("mac", item.ConnectedDevice.Mac);
+            //    connection.Add("reporting-device",item.ReportingDevice.DeviceName);
+            //    connection.Add("date", item.ConnectionDateTime.ToString());
+            //    connectionList.Add(connection);
+            //}
 
-            data.Add("connections",connectionList);
+            
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }

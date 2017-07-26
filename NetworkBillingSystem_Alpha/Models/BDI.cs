@@ -10,11 +10,14 @@ namespace NetworkBillingSystem_Alpha.Models
     public class BDI
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int BDIID { get; set; }
         public string BDINumber { get; set; }
-        public int? DepartmentID { get; set; }
-        // Navigation properties
-        public virtual Department Department { get; set; }
-        public virtual ICollection<Connection> Connections { get; set; }
+        public virtual ICollection<ConnectedDevice> ConnectedDevices {get; set;}
+  
+        public BDI()
+        {
+            this.ConnectedDevices = new List<ConnectedDevice>();
+        }
+
     }
 }

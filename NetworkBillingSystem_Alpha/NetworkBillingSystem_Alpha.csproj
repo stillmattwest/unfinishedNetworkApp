@@ -201,10 +201,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArpTest.cs" />
-    <Compile Include="Controllers\BDIsController.cs" />
-    <Compile Include="Controllers\ConnectedDevicesController.cs" />
-    <Compile Include="Controllers\ConnectionsController.cs" />
-    <Compile Include="Controllers\DepartmentsController.cs" />
     <Compile Include="Controllers\DepartmentReportController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -213,21 +209,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707182359158_init.cs" />
-    <Compile Include="Migrations\201707182359158_init.Designer.cs">
-      <DependentUpon>201707182359158_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707191538355_seed-departments.cs" />
-    <Compile Include="Migrations\201707191538355_seed-departments.Designer.cs">
-      <DependentUpon>201707191538355_seed-departments.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707242114390_modDepartmentModel.cs" />
-    <Compile Include="Migrations\201707242114390_modDepartmentModel.Designer.cs">
-      <DependentUpon>201707242114390_modDepartmentModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201707242158508_07242017_01.cs" />
-    <Compile Include="Migrations\201707242158508_07242017_01.Designer.cs">
-      <DependentUpon>201707242158508_07242017_01.cs</DependentUpon>
+    <Compile Include="Migrations\201707261614327_updateModelCollections.cs" />
+    <Compile Include="Migrations\201707261614327_updateModelCollections.Designer.cs">
+      <DependentUpon>201707261614327_updateModelCollections.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -302,31 +286,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Delete.cshtml" />
-    <Content Include="Views\Departments\Details.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\ReportingDevices\Create.cshtml" />
     <Content Include="Views\ReportingDevices\Delete.cshtml" />
     <Content Include="Views\ReportingDevices\Details.cshtml" />
     <Content Include="Views\ReportingDevices\Edit.cshtml" />
     <Content Include="Views\ReportingDevices\Index.cshtml" />
-    <Content Include="Views\BDIs\Create.cshtml" />
-    <Content Include="Views\BDIs\Delete.cshtml" />
-    <Content Include="Views\BDIs\Details.cshtml" />
-    <Content Include="Views\BDIs\Edit.cshtml" />
-    <Content Include="Views\BDIs\Index.cshtml" />
-    <Content Include="Views\Connections\Create.cshtml" />
-    <Content Include="Views\Connections\Delete.cshtml" />
-    <Content Include="Views\Connections\Details.cshtml" />
-    <Content Include="Views\Connections\Edit.cshtml" />
-    <Content Include="Views\Connections\Index.cshtml" />
-    <Content Include="Views\ConnectedDevices\Create.cshtml" />
-    <Content Include="Views\ConnectedDevices\Delete.cshtml" />
-    <Content Include="Views\ConnectedDevices\Details.cshtml" />
-    <Content Include="Views\ConnectedDevices\Edit.cshtml" />
-    <Content Include="Views\ConnectedDevices\Index.cshtml" />
     <Content Include="Views\DepartmentReport\index.cshtml" />
     <Content Include="Views\DepartmentReport\GetReport.cshtml" />
   </ItemGroup>
@@ -342,17 +306,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201707182359158_init.resx">
-      <DependentUpon>201707182359158_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707191538355_seed-departments.resx">
-      <DependentUpon>201707191538355_seed-departments.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707242114390_modDepartmentModel.resx">
-      <DependentUpon>201707242114390_modDepartmentModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707242158508_07242017_01.resx">
-      <DependentUpon>201707242158508_07242017_01.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707261614327_updateModelCollections.resx">
+      <DependentUpon>201707261614327_updateModelCollections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

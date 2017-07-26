@@ -11,10 +11,11 @@ namespace NetworkBillingSystem_Alpha.Models
     {
         public int ConnectedDeviceID { get; set; }
         public string Mac { get; set; }
-        public int ConnectionID;
-        public int? DepartmentID { get; set; }
-        public virtual ICollection<BDI> BDIs { get; set; }
-        public virtual ICollection<Connection> Connection { get; set; }
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<Connection> Connections { get; set; }
+       
+        public ConnectedDevice()
+        {
+            this.Connections = new List<Connection>();
+        }
     }
 }

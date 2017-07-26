@@ -13,11 +13,10 @@ namespace NetworkBillingSystem_Alpha.Models
         public int DepartmentID { get; set; }
         public string Name { get; set; }
         public string BillingCode { get; set; }
-        // Navigation Properties
-        public virtual ICollection<BDI>BDIs { get; set; }
-        public virtual ICollection<Connection>Connections{ get; set; }
-        public virtual ICollection<ConnectedDevice> ConnectedDevices { get; set;}
-
-
+        public virtual ICollection<BDI> BDIs { get; set; }
+        public Department()
+        {
+            this.BDIs = new List<BDI>();
+        }
     }
 }

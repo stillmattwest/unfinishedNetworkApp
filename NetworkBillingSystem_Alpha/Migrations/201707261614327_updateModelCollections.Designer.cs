@@ -7,13 +7,13 @@ namespace NetworkBillingSystem_Alpha.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class init : IMigrationMetadata
+    public sealed partial class updateModelCollections : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updateModelCollections));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707182359158_init"; }
+            get { return "201707261614327_updateModelCollections"; }
         }
         
         string IMigrationMetadata.Source
