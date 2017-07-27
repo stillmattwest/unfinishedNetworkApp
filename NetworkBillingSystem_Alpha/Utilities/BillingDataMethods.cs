@@ -70,12 +70,11 @@ namespace NetworkBillingSystem_Alpha.Utilities
         }
 
 
-        // TODO - Break this up into SRP functions
+        // calls functions to assemble billing data for connectionInfo list and adds it all to database.
         public void addBillingDataToDB(List<List<string>> connectionInfo)
         {
             foreach (List<string> item in connectionInfo)
             {
-
                 string itemMac = item[0];
                 string itemBdi = item[1];
                 string itemDepartment = item[2];
@@ -84,53 +83,31 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 // autocreate new BDI if doesn't exist in database
                 AutoCreateBDI(itemBdi);
 
-                // get BDI from database
-                BDI bdi = db.BDIs
-                    .Where(x => x.BDINumber == itemBdi)
-                    .FirstOrDefault();
+                // Get BDI data
+                BDI bdi = getBDIData(itemBdi);
 
-                // check to see if connectedDevice Mac exists in database
-                // if not create it
-                if (!db.ConnectedDevices.Any(x => x.Mac == itemMac))
-                {
-                    ConnectedDevice newConnDev = new ConnectedDevice();
-                    newConnDev.Mac = itemMac;
-                    db.ConnectedDevices.Add(newConnDev);
-                }
+                // autocreate new ConnectedDevice if doesn't exist in database
+                autoCreateConnectedDevice(itemMac);
 
-                // Entity Framework stores this data to local datasource, not persisted to db yet.
                 // grab ConnectedDevice from local datasource and assign it to cd
-                var cd = db.ConnectedDevices.Local
-                     .Where(x => x.Mac == itemMac)
-                     .FirstOrDefault();
+                var cd = getConnectedDevice(itemMac);
 
                 // get reporting device id from router name
-                var reportingDevice = db.ReportingDevices
-                    .Where(x => x.DeviceName == itemRouter)
-                    .FirstOrDefault();
+                var reportingDevice = getReportingDevice(itemRouter);
 
                 // create new Connection object
-                Connection connection = new Connection();
-                connection.ConnectionDateTime = DateTime.Now;
-                connection.ReportingDeviceID = reportingDevice.ReportingDeviceID;
-                connection.Mac = itemMac;
-
-                // add connection to db
-                db.Connections.Add(connection);
+                createConnection(reportingDevice.ReportingDeviceID, itemMac);
 
                 // get new connection
-                connection = db.Connections.Local
-                    .OrderByDescending(x => x.ConnectionID)
-                    .FirstOrDefault();
-
+                Connection newestConnection = getNewestConnection();
+                
                 // add connection to connected device
-                cd.Connections.Add(connection);
+                cd.Connections.Add(newestConnection);
+
                 // add connected device to bdi
                 bdi.ConnectedDevices.Add(cd);
 
-
                 // Entity Framework is smart enough to track the changes above so we just save them
-
                 db.SaveChanges();
             }
 
@@ -167,6 +144,101 @@ namespace NetworkBillingSystem_Alpha.Utilities
                 db.SaveChanges();
             }
 
+        }
+
+        // returns BDI from either DB or local data storage
+        public BDI getBDIData(string bdiNumber)
+        {
+            try
+            {
+                BDI bdi = db.BDIs
+                    .Where(x => x.BDINumber == bdiNumber)
+                    .FirstOrDefault();
+                return bdi;
+            }
+            catch (NullReferenceException)
+            {
+                BDI bdi = db.BDIs.Local
+                    .Where(x => x.BDINumber == bdiNumber)
+                    .FirstOrDefault();
+                return bdi;
+            }
+
+
+        }
+
+        // checks to see if a connected device exists in database and adds it if not
+        public void autoCreateConnectedDevice(string macAddress)
+        {
+            if (!db.ConnectedDevices.Any(x => x.Mac == macAddress))
+            {
+                ConnectedDevice newConnDev = new ConnectedDevice();
+                newConnDev.Mac = macAddress;
+                db.ConnectedDevices.Add(newConnDev);
+                db.SaveChanges();
+            }
+        }
+
+        // returns a connected device either from database or local data storage
+        public ConnectedDevice getConnectedDevice(string macAddress)
+        {
+            try
+            {
+                var cd = db.ConnectedDevices
+                    .Where(x => x.Mac == macAddress)
+                    .FirstOrDefault();
+
+                return cd;
+            }
+            catch (NullReferenceException)
+            {
+                var cd = db.ConnectedDevices.Local
+                    .Where(x => x.Mac == macAddress)
+                    .FirstOrDefault();
+
+                return cd;
+            }
+            
+        }
+
+        // returns a reporting device from database
+        public ReportingDevice getReportingDevice(string routerName)
+        {
+            var reportingDevice = db.ReportingDevices
+                    .Where(x => x.DeviceName == routerName)
+                    .FirstOrDefault();
+
+            return reportingDevice;
+        }
+
+        // adds a new connection object to database
+        public void createConnection(int routerId, string macAddress)
+        {
+            Connection connection = new Connection();
+            connection.ConnectionDateTime = DateTime.Now;
+            connection.ReportingDeviceID = routerId;
+            connection.Mac = macAddress;
+            db.Connections.Add(connection);
+            db.SaveChanges();
+        }
+
+        // returns the most recently added connection from database or from local data storage, whichever is newer.
+        public Connection getNewestConnection()
+        {
+            Connection dbConnection = db.Connections
+                    .OrderByDescending(x => x.ConnectionID)
+                    .FirstOrDefault();
+
+            Connection localConnection = db.Connections.Local
+                .OrderByDescending(x => x.ConnectionID)
+                    .FirstOrDefault();
+
+            if(localConnection.ConnectionID >= dbConnection.ConnectionID)
+            {
+                return localConnection;
+            }
+
+            return dbConnection;
         }
 
     }
