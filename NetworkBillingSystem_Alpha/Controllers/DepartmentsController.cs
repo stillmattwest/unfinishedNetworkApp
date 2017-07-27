@@ -18,7 +18,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: Departments
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            return View(db.Departments.ToList().OrderBy(x => x.Name));
         }
 
         // GET: Departments/Details/5
