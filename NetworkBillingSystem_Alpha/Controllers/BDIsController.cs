@@ -19,7 +19,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         public ActionResult Index()
         {
             var bDIs = db.BDIs.Include(b => b.Department).OrderBy(x => x.BDINumber);
-            return View(bDIs.ToList().OrderBy(x => x.BDINumber));
+            return View(bDIs.ToList());
         }
 
         // GET: BDIs/Details/5
@@ -40,7 +40,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // GET: BDIs/Create
         public ActionResult Create()
         {
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name");
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentID", "Name");
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BDIID,BDINumber,DepartmentID")] BDI bDI)
+        public ActionResult Create([Bind(Include = "BDIID,BDINumber,DepartmentId")] BDI bDI)
         {
             if (ModelState.IsValid)
             {
@@ -58,13 +58,14 @@ namespace NetworkBillingSystem_Alpha.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentId);
             return View(bDI);
         }
 
         // GET: BDIs/Edit/5
         public ActionResult Edit(int? id)
         {
+            var depts = db.Departments.ToList().OrderBy(x => x.Name);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -74,9 +75,7 @@ namespace NetworkBillingSystem_Alpha.Controllers
             {
                 return HttpNotFound();
             }
-
-            var depts = db.Departments.ToList().OrderBy(x => x.Name);
-            ViewBag.DepartmentID = new SelectList(depts, "DepartmentID", "Name", bDI.DepartmentID);
+            ViewBag.DepartmentId = new SelectList(depts, "DepartmentID", "Name", bDI.DepartmentId);
             return View(bDI);
         }
 
@@ -85,25 +84,15 @@ namespace NetworkBillingSystem_Alpha.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BDIID,BDINumber,DepartmentID")] BDI bDI)
+        public ActionResult Edit([Bind(Include = "BDIID,BDINumber,DepartmentId")] BDI bDI)
         {
             if (ModelState.IsValid)
             {
-                // saves BDI entry
                 db.Entry(bDI).State = EntityState.Modified;
-
-                // finds department that corresponds to selected dept in view
-                var department = db.Departments.Find(bDI.DepartmentID);
-                // add BDI to department BDI collection
-                if(!String.IsNullOrEmpty(department.Name))
-                {
-                    department.BDIs.Add(bDI);
-                }
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentID);
+            ViewBag.DepartmentId = new SelectList(db.Departments, "DepartmentID", "Name", bDI.DepartmentId);
             return View(bDI);
         }
 

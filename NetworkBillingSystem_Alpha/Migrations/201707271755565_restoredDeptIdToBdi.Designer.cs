@@ -7,13 +7,13 @@ namespace NetworkBillingSystem_Alpha.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class bdiForeignKey : IMigrationMetadata
+    public sealed partial class restoredDeptIdToBdi : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(bdiForeignKey));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(restoredDeptIdToBdi));
         
         string IMigrationMetadata.Id
         {
-            get { return "201707261754351_bdiForeignKey"; }
+            get { return "201707271755565_restoredDeptIdToBdi"; }
         }
         
         string IMigrationMetadata.Source

@@ -15,8 +15,9 @@
             @Html.DisplayNameFor(model => model.BDINumber)
         </th>
         <th>
-            Department
+            Department Name
         </th>
+
         <th></th>
     </tr>
 
@@ -28,20 +29,23 @@
             </td>
 
             @{
-                if (item.Department == null)
+                if (item.Department != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.Name)
+                    </td>
+                }
+                else
                 {
                     <td>
                         Unknown
                     </td>
 
                 }
-                else
-                {
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Department.Name)
-                    </td>
-                }
             }
+
+
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.BDIID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.BDIID }) |

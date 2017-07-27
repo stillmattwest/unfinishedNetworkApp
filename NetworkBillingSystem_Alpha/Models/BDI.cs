@@ -12,14 +12,13 @@ namespace NetworkBillingSystem_Alpha.Models
         [Key]
         public int BDIID { get; set; }
         public string BDINumber { get; set; }
-        public int? DepartmentID { get; set; }
+        public int? DepartmentId { get; set; }
         public virtual Department Department { get; set; }
         public virtual ICollection<ConnectedDevice> ConnectedDevices { get; set; }
 
         public BDI()
         {
             ConnectedDevices = new List<ConnectedDevice>();
-            Department = new Department();
         }
 
     }
