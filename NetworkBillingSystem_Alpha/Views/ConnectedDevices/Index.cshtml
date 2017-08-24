@@ -1,4 +1,5 @@
-﻿@model IEnumerable<NetworkBillingSystem_Alpha.Models.ConnectedDevice>
+﻿@model IEnumerable<NetworkBillingSystem_Alpha.Models.BDI>
+
 
 @{
     ViewBag.Title = "Index";
@@ -12,7 +13,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Mac)
+            @Html.DisplayNameFor(model => model.BDINumber)
+        </th>
+        <th>
+            Device MAC Address
         </th>
         <th>
             Last Connection
@@ -22,19 +26,21 @@
 
 @foreach (var item in Model)
 {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mac)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Connections.LastOrDefault().ConnectionDateTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ConnectedDeviceID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ConnectedDeviceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ConnectedDeviceID })
-        </td>
-    </tr>
+    foreach (var device in item.ConnectedDevices)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BDINumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => device.Mac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => device.Connections.LastOrDefault().ConnectionDateTime)
+            </td>
+        </tr>
+    }
+
 }
 
 </table>

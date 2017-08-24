@@ -16,9 +16,10 @@ namespace NetworkBillingSystem_Alpha.Controllers
         private ApplicationContext db = new ApplicationContext();
 
         // GET: ConnectedDevices
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.ConnectedDevices.ToList());
+            
+            return View(db.BDIs.ToList().OrderBy(BDI => BDI.BDINumber));
         }
 
         // GET: ConnectedDevices/Details/5
